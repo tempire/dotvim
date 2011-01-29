@@ -9,7 +9,7 @@
 	url = git://github.com/msanders/snipmate.vim.git
 [submodule "bundle/unimpaired"]
 	path = bundle/unimpaired
-	url = https://github.com/tpope/vim-unimpaired.git
+	url = git://github.com/vim-scripts/unimpaired.vim.git
 [submodule "bundle/mojo"]
 	path = bundle/mojo
 	url = https://github.com/yko/mojo.vim.git
