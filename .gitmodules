@@ -15,7 +15,7 @@
 	url = https://github.com/yko/mojo.vim.git
 [submodule "bundle/pastie"]
 	path = bundle/pastie
-	url = git://github.com/tpope/vim-pastie.git
+	url = git://github.com/vim-scripts/pastie.vim.git
 [submodule "bundle/taglist"]
 	path = bundle/taglist
 	url = git://github.com/vim-scripts/taglist.vim.git
