@@ -3,7 +3,7 @@
 	url = git://github.com/wincent/Command-T.git
 [submodule "bundle/nerdtree"]
 	path = bundle/nerdtree
-	url = https://github.com/scrooloose/nerdtree.git
+	url = git://github.com/scrooloose/nerdtree.git
 [submodule "bundle/snipmate"]
 	path = bundle/snipmate
 	url = git://github.com/msanders/snipmate.vim.git
@@ -12,7 +12,7 @@
 	url = git://github.com/vim-scripts/unimpaired.vim.git
 [submodule "bundle/mojo"]
 	path = bundle/mojo
-	url = https://github.com/yko/mojo.vim.git
+	url = git://github.com/yko/mojo.git
 [submodule "bundle/pastie"]
 	path = bundle/pastie
 	url = git://github.com/vim-scripts/pastie.vim.git
