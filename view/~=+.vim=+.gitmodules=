@@ -1,5 +1,6 @@
 let s:so_save = &so | let s:siso_save = &siso | set so=0 siso=0
 argglobal
+cnoremap <buffer> <expr>  fugitive#buffer().rev()
 setlocal autoindent
 setlocal nobinary
 setlocal bufhidden=
@@ -93,14 +94,16 @@ setlocal nowinfixheight
 setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
+2
+normal zo
 17
 normal zo
-let s:l = 19 - ((18 * winheight(0) + 21) / 43)
+let s:l = 5 - ((4 * winheight(0) + 21) / 43)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-19
-normal! 019l
+5
+normal! 07l
 let &so = s:so_save | let &siso = s:siso_save
 doautoall SessionLoadPost
 " vim: set ft=vim :
