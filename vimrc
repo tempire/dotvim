@@ -208,13 +208,6 @@ autocmd BufRead,BufNewFile *.t,*.pl,*.plx,*.pm nmap <Leader>te :let g:testfile =
 autocmd BufRead,BufNewFile *.t,*.pl,*.plx,*.pm command! -range=% -nargs=* Tidy <line1>,<line2>!perltidy -q
 autocmd BufRead,BufNewFile *.t,*.pl,*.plx,*.pm noremap <Leader>pt :Tidy<CR>
 
-" n perltidy
-autocmd BufRead,BufNewFile *.t,*.pl,*.plx,*.pm command! -range=% -nargs=* NTidy <line1>,<line2>!perltidy -pro=/Users/glen/Projects/n/.perltidyrc -q
-autocmd BufRead,BufNewFile *.t,*.pl,*.plx,*.pm noremap <Leader>ptn :NTidy<CR>
-
-" python does not like tabs
-" tabs are dead everywhere now..autocmd filetype python set expandtab
-
 " xmlfolding
 au BufNewFile,BufRead *.xml,*.htm,*.html so bundle/plugin/XMLFolding.vim
 
@@ -265,7 +258,7 @@ function! StatuslineTabWarning()
     return b:statusline_tab_warning
 endfunction
 
-"return the syntax highlight group under the cursor ''
+" return the syntax highlight group under the cursor ''
 function! StatuslineCurrentHighlight()
     let name = synIDattr(synID(line('.'),col('.'),1),'name')
     if name == ''
