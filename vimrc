@@ -34,6 +34,11 @@ endif
 " folding
 set foldmethod=indent
 
+" command-t search large trees
+let g:CommandTMaxFiles=20000
+let mojo_highlight_data = 1
+
+"
 " Sidebar folder navigation
 let NERDTreeShowLineNumbers=1
 let NERDTreeShowBookmarks=1
@@ -204,6 +209,11 @@ endfunction
 
 autocmd BufRead,BufNewFile *.t,*.pl,*.plx,*.pm nmap <Leader>te :let g:testfile = expand("%")<cr>:echo "testfile is now" g:testfile<cr>:call Prove (1,1)<cr>
 
+" markdown
+augroup mkd
+autocmd BufRead *.mkd  set ai formatoptions=tcroqn2 comments=n:&gt;
+augroup END
+
 " perltidy
 autocmd BufRead,BufNewFile *.t,*.pl,*.plx,*.pm command! -range=% -nargs=* Tidy <line1>,<line2>!perltidy -q
 autocmd BufRead,BufNewFile *.t,*.pl,*.plx,*.pm noremap <Leader>pt :Tidy<CR>
@@ -225,8 +235,6 @@ function! <SID>SynStack()
   endif
   echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
 endfunc
-
-source ~/.vim/plugins/hexHighlight.vim
 
 inoremap <silent> <Bar>   <Bar><Esc>:call <SID>align()<CR>a
 

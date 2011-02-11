@@ -12,7 +12,7 @@ perl << EOP
     sub current_sub {
         my $curwin = $main::curwin;
         my $curbuf = $main::curbuf;
-
+warn 333;
         my @document = map { $curbuf->Get($_) } 0 .. $curbuf->Count;
         my ( $line_number, $column  ) = $curwin->Cursor;
 
