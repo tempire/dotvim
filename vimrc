@@ -151,16 +151,16 @@ nnoremap <F5> :GundoToggle<cr>
 
 
 " Move single lines up-down
-"nmap <c-up> ddkP
-"nmap <c-down> ddp
-nmap <c-up [e
-nmap <c-down> ]e
+nmap <c-up> ddkP
+nmap <c-down> ddp
+"nmap <c-up [e
+"nmap <c-down> ]e
 
 " Move multiple lines up-down
-"vmap <c-up> xkP`[V`]
-"vmap <c-down> xp`[V`]
-vmap <c-up> [egv
-vmap <c-down> ]egv
+vmap <c-up> xkP`[V`]
+vmap <c-down> xp`[V`]
+"vmap <c-up> [egv
+"vmap <c-down> ]egv
 
 " autocompletion
 imap <Leader><Tab> <C-X><C-O>
