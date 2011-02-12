@@ -31,3 +31,6 @@
 [submodule "bundle/perlomni"]
 	path = bundle/perlomni
 	url = git://github.com/vim-scripts/perlomni.vim.git
+[submodule "bundle/autocomplpop"]
+	path = bundle/autocomplpop
+	url = git://github.com/vim-scripts/AutoComplPop.git
