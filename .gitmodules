@@ -12,7 +12,7 @@
 	url = git://github.com/vim-scripts/unimpaired.vim.git
 [submodule "bundle/mojo"]
 	path = bundle/mojo
-	url = git://github.com/yko/mojo.git
+	url = git://github.com/yko/mojo.vim.git
 [submodule "bundle/pastie"]
 	path = bundle/pastie
 	url = git://github.com/vim-scripts/pastie.vim.git
