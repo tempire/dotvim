@@ -28,3 +28,6 @@
 [submodule "bundle/nerdcommenter"]
 	path = bundle/nerdcommenter
 	url = git://github.com/scrooloose/nerdcommenter.git
+[submodule "bundle/perlomni"]
+	path = bundle/perlomni
+	url = git://github.com/vim-scripts/perlomni.vim.git
