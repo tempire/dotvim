@@ -12,6 +12,10 @@ filetype on
 filetype plugin on
 filetype indent on
 
+" folding
+let perl_fold=1
+let perl_extended_vars = 1
+
 set laststatus=2 
 
 " backspaces over everything in insert mode
