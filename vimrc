@@ -118,8 +118,6 @@ else
 	colorscheme ir_black
 endif
 
-execute "silent! source vimrc." . $USER
-
 " line tracking
 set numberwidth=5
 set cursorline
@@ -283,3 +281,5 @@ function! StatuslineCurrentHighlight()
         return '[' . name . ']'
     endif
 endfunction
+
+execute "silent! source vimrc." . $USER
