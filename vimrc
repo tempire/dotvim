@@ -281,5 +281,3 @@ function! StatuslineCurrentHighlight()
         return '[' . name . ']'
     endif
 endfunction
-
-execute "silent! source vimrc." . $USER
