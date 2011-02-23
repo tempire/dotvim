@@ -1,3 +1,5 @@
+let user = substitute(system('whoami'), '\n', '', '')
+
 " pathogen
 silent! call pathogen#runtime_append_all_bundles()
 silent! call pathogen#helptags()
@@ -115,6 +117,8 @@ if &t_Co >= 256 || has("gui_running")
 else
 	colorscheme ir_black
 endif
+
+execute "silent! source vimrc." . $USER
 
 " line tracking
 set numberwidth=5
