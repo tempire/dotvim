@@ -146,6 +146,7 @@ map <Leader>M :!perl % daemon --reload<cr>
 map <Leader>x :!perl -Ilib %<cr>
 map <leader><space> :CommandT<cr>
 map <leader>H :call HexHighlight()<cr>
+map <leader>tts :%s/\s\+$//<cr>
 "
 " cd to directory of current file
 map <leader>cd :cd %:p:h<cr>
