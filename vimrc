@@ -1,5 +1,5 @@
 " Use our user unless we have a sudo user, then is it
-let user = substitute(system('whoami'), '\n', '', '')
+let luser = substitute(system('whoami'), '\n', '', '')
 if strlen($SUDO_USER)
     let luser = $SUDO_USER
 endif
