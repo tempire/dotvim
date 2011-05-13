@@ -1,0 +1,7 @@
+This is a mirror of http://www.vim.org/scripts/script.php?script_id=1624
+
+This script lets you read and create pastes at http://pastie.org/ .  Pastes can be created from a range, a register (including the clipboard), any number of files, all open windows, or an existing paste.  It automatically maps between Vim filetypes and pastie's parsers.  Details for how to use the :Pastie command are included in the comments at the top of the plugin.
+
+Pastie is the preferred method of sharing code in the Ruby IRC community.
+
+http://github.com/tpope/vim-pastie
