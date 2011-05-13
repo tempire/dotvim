@@ -78,8 +78,8 @@ snippet cl
 	use base '${2:ParentClass}';
 	
 	sub new {
-		my $self = bless {} => shift;my $class = shift;
-        return $self;
+		my $self = bless {} => shift;
+		return $self;
 	}
 	
 	1;${3}
