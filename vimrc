@@ -22,7 +22,7 @@ filetype indent on
 let perl_fold=1
 let perl_extended_vars = 1
 
-set laststatus=2 
+set laststatus=2
 
 " backspaces over everything in insert mode
 set backspace=indent,eol,start
@@ -133,7 +133,7 @@ inoremap jj <Esc>
 nnoremap ; :
 
 let mapleader = ","
-nnoremap <Leader>a :Ack 
+nnoremap <Leader>a :Ack
 map <Leader>, :NERDTreeToggle<cr>
 map <Leader>t :tabnew<cr>
 map <Leader>h :tabprevious<cr>
