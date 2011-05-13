@@ -65,23 +65,21 @@ snippet for
 	}
 # Foreach Loop
 snippet fore
-	foreach my $${1:x} (@${2:array}) {
+	for my $${1:x} (@${2:array}) {
 		${3:# body...}
 	}
 # Foreach Loop One-line
 snippet xfore
-	${1:expression} foreach @${2:array};${3}
+	${1:expression} for @${2:array};${3}
 # Package
 snippet cl
 	package ${1:ClassName};
 	
-	use base qw(${2:ParentClass});
+	use base '${2:ParentClass}';
 	
 	sub new {
-		my $class = shift;
-		$class = ref $class if ref $class;
-		my $self = bless {}, $class;
-		$self;
+		my $self = bless {} => shift;my $class = shift;
+        return $self;
 	}
 	
 	1;${3}
