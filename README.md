@@ -5,6 +5,11 @@
 - vim must be compiled with ruby (for command-t) & python (gundo)
   - ./configure --enable-perlinterp --enable-pythoninterp --enable-rubyinterp
 
+### On OSX, use <a href="http://mxcl.github.com/homebrew/">homebrew</a> to install vim (terminal & gui):
+
+    brew install ruby
+    brew install ctags
+    brew install macvim --override-system-vim
 
 ## Install
 
