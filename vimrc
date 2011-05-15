@@ -171,6 +171,14 @@ nmap <c-down> ddp
 "nmap <c-up [e
 "nmap <c-down> ]e
 
+" Resize vertical windows
+nmap + <c-w>+
+nmap _ <c-w>-
+
+" Resize horizontal windows
+nmap > <c-w>>
+nmap < <c-w><
+
 " Move multiple lines up-down
 vmap <c-up> xkP`[V`]
 vmap <c-down> xp`[V`]
