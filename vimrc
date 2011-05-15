@@ -1,3 +1,7 @@
+let g:slimv_keybindings=1
+let g:lisp_rainbow=1
+let g:slimv_leader=',s'
+
 " Use our user unless we have a sudo user, then is it
 let luser = substitute(system('whoami'), '\n', '', '')
 if strlen($SUDO_USER)
@@ -22,7 +26,7 @@ filetype indent on
 let perl_fold=1
 let perl_extended_vars = 1
 
-set laststatus=2 
+set laststatus=2
 
 " backspaces over everything in insert mode
 set backspace=indent,eol,start
@@ -53,7 +57,7 @@ let mojo_highlight_data = 1
 let NERDTreeShowLineNumbers=1
 let NERDTreeShowBookmarks=1
 let NERDTreeChDirMode=2
-let NERDTreeWinSize=41
+let NERDTreeWinSize=35
 let NERDTreeIgnore=['CVS']
 
 let mojo_highlight_data = 1
@@ -78,7 +82,7 @@ set noswapfile
 " git branch
 set statusline=%f " tail of the filename
 
-set statusline+=%{fugitive#statusline()}
+"set statusline+=%{fugitive#statusline()}
 
 set statusline+=%=      "left/right separator
 set statusline+=%{StatuslineCurrentHighlight()}\ \ "current highlight
@@ -132,9 +136,9 @@ inoremap jj <Esc>
 
 nnoremap ; :
 
-let mapleader = ","
-nnoremap <Leader>a :Ack 
-map <Leader>, :NERDTreeToggle<cr>
+let mapleader = ','
+nnoremap <Leader>a :Ack
+noremap <Leader>, :NERDTreeToggle<cr>
 map <Leader>t :tabnew<cr>
 map <Leader>h :tabprevious<cr>
 map <Leader>l :tabnext<cr>
@@ -179,7 +183,8 @@ imap <Leader><Tab> <C-X><C-O>
 " perldoc for module || perl command
 noremap K :!perldoc <cword> <bar><bar> perldoc -f <cword><cr>
 " Opens nerdtree and puts focus in edited file
-autocmd VimEnter * exe 'NERDTree' | wincmd l | exe 'NERDTreeToggle'
+"autocmd VimEnter * NERDTree
+"autocmd VimEnter * wincmd p
 
 " file types
 au BufRead,BufNewFile *.t,*.cgi set filetype=perl
