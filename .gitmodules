@@ -6,7 +6,7 @@
 	url = git://github.com/scrooloose/nerdtree.git
 [submodule "bundle/snipmate"]
 	path = bundle/snipmate
-	url = git://github.com/msanders/snipmate.vim.git
+	url = git@github.com:tempire/snipmate.vim.git
 [submodule "bundle/unimpaired"]
 	path = bundle/unimpaired
 	url = git://github.com/vim-scripts/unimpaired.vim.git
