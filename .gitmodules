@@ -36,4 +36,10 @@
 	url = git://github.com/gregsexton/gitv.git
 [submodule "bundle/snipmate"]
 	path = bundle/snipmate
-	url = git://github.com/tempire/vim-snipmate.git
+	url = git@github.com:tempire/vim-snipmate.git
+[submodule "bundle/vim-addon-mw-utils"]
+	path = bundle/vim-addon-mw-utils
+	url = git://github.com/MarcWeber/vim-addon-mw-utils.git
+[submodule "bundle/tlib"]
+	path = bundle/tlib
+	url = git://github.com/tomtom/tlib_vim.git

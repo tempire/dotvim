@@ -195,6 +195,7 @@ noremap K :!perldoc <cword> <bar><bar> perldoc -f <cword><cr>
 "autocmd VimEnter * wincmd p
 
 " file types
+au BufRead,BufNewFile *.asd,*.lisp set filetype=lisp
 au BufRead,BufNewFile *.t,*.cgi set filetype=perl
 au BufRead,BufNewFile *.conf set filetype=apache
 
