@@ -1,6 +1,6 @@
 " slimv.vim:    The Superior Lisp Interaction Mode for VIM
 " Version:      0.8.3
-" Last Change:  09 May 2011
+" Last Change:  17 May 2011
 " Maintainer:   Tamas Kovacs <kovisoft at gmail dot com>
 " License:      This file is placed in the public domain.
 "               No warranty, express or implied.
@@ -279,6 +279,11 @@ if !exists( 'g:slimv_repl_wrap' )
     let g:slimv_repl_wrap = 1
 endif
 
+" Maximum number of lines echoed from the evaluated form
+if !exists( 'g:slimv_echolines' )
+    let g:slimv_echolines = 4
+endif
+
 " Syntax highlighting for the REPL buffer
 if !exists( 'g:slimv_repl_syntax' )
     let g:slimv_repl_syntax = 0
@@ -329,9 +334,18 @@ if !exists( 'g:slimv_balloon' )
     let g:slimv_balloon = 1
 endif
 
+" Shall we use simple or fuzzy completion?
+if !exists( 'g:slimv_simple_compl' )
+    let g:slimv_simple_compl = 0
+endif
+
 " Custom <Leader> for the Slimv plugin
 if !exists( 'g:slimv_leader' )
-    let g:slimv_leader = ','
+    if exists( 'mapleader' )
+        let g:slimv_leader = mapleader
+    else
+        let g:slimv_leader = ','
+    endif
 endif
 
 
@@ -470,6 +484,7 @@ endif
 
 let s:repl_name = g:slimv_repl_dir . g:slimv_repl_file    " Name of the REPL buffer inside Vim
 let s:prompt = ''                                         " Lisp prompt in the last line
+let s:indent = ''                                         " Most recent indentation info
 let s:last_update = 0                                     " The last update time for the REPL buffer
 let s:last_size = 0                                       " The last size of the REPL buffer
 let s:save_updatetime = &updatetime                       " The original value for 'updatetime'
@@ -601,7 +616,6 @@ function! SlimvCommand( cmd )
     set nomodified
     let s:last_update = localtime()
 
-    syntax on
     if !g:slimv_repl_syntax
         set syntax=
     endif
@@ -1075,6 +1089,7 @@ function! SlimvConnectSwank()
             " SWANK server is not running, start server if possible
             let swank = SlimvSwankCommand()
             if swank != ''
+                redraw
                 echon "\rStarting SWANK server..."
                 silent execute swank
                 let starttime = localtime()
@@ -1087,6 +1102,7 @@ function! SlimvConnectSwank()
         endif
         if result == ''
             " Connected to SWANK server
+            redraw
             echon "\rGetting SWANK connection info..."
             let starttime = localtime()
             while s:swank_version == '' && localtime()-starttime < g:slimv_timeout
@@ -1094,8 +1110,14 @@ function! SlimvConnectSwank()
             endwhile
             if s:swank_version >= '2008-12-23'
                 python swank_create_repl()
+                call SlimvSwankResponse()
             endif
             let s:swank_connected = 1
+            if g:slimv_simple_compl == 0
+                python swank_require('swank-fuzzy')
+                call SlimvSwankResponse()
+            endif
+            redraw
             echon "\rConnected to SWANK server on port " . g:swank_port . "."
         else
             " Display connection error message
@@ -1136,7 +1158,19 @@ function! SlimvSend( args, open_buffer, echoing )
         let s:refresh_disabled = 1
         let s:swank_form = text
         if a:echoing
+            if g:slimv_echolines > 0
+                let nlpos = match( s:swank_form, "\n", 0, g:slimv_echolines )
+                if nlpos > 0
+                    " Echo only the first g:slimv_echolines number of lines
+                    let s:swank_form = strpart( s:swank_form, 0, nlpos ) . " ..."
+                    let end = s:CloseForm( [s:swank_form] )
+                    if end != 'ERROR'
+                        let s:swank_form = s:swank_form . end
+                    endif
+                endif
+            endif
             call SlimvCommand( 'echo s:swank_form' )
+            let s:swank_form = text
         endif
         call SlimvCommand( 'python swank_input("s:swank_form")' )
         let s:swank_package = ''
@@ -1209,47 +1243,95 @@ function! SlimvRecallHistory()
     endif
 endfunction
 
-" Count the opening and closing parens or brackets to determine if they match
-function! s:GetParenCount( lines )
-    let paren = 0
-    let inside_string = 0
+" Return missing parens, double quotes, etc to properly close form
+function! s:CloseForm( lines )
+    let form = join( a:lines, "\n" )
+    let end = ''
     let i = 0
-    while i < len( a:lines )
-        let inside_comment = 0
-        let j = 0
-        while j < len( a:lines[i] )
-            if inside_string
-                " We are inside a string, skip parens, wait for closing '"'
-                if a:lines[i][j] == '"' && ( j < 1 || a:lines[i][j-1] != '\' )
-                    let inside_string = 0
+    while i < len( form )
+        if form[i] == '"'
+            " Inside a string
+            let end = '"' . end
+            let i += 1
+            while i < len( form )
+                if form[i] == '\'
+                    " Ignore next character
+                    let i += 2
+                elseif form[i] == '"'
+                    let end = end[1:]
+                    break
+                else
+                    let i += 1
                 endif
-            elseif inside_comment
-                " We are inside a comment, skip parens, wait for end of line
-            else
-                " We are outside of strings and comments, now we shall count parens
-                if a:lines[i][j] == '"'
-                    let inside_string = 1
+            endwhile
+        elseif form[i] == ';'
+            " Inside a comment
+            let end = "\n" . end
+            let cend = match(form, "\n", i)
+            if cend == -1
+                break
+            endif
+            let i = cend
+            let end = end[1:]
+        else
+            " We are outside of strings and comments, now we shall count parens
+            if form[i] == '('
+                let end = ')' . end
+            elseif form[i] == '['
+                let end = ']' . end
+            elseif form[i] == ')' || form[i] == ']'
+                if len( end ) == 0 || end[0] != form[i]
+                    " Oops, too many closing parens or invalid closing paren
+                    return 'ERROR'
                 endif
-                if a:lines[i][j] == ';'
-                    let inside_comment = 1
-                endif
-                if a:lines[i][j] == '(' || a:lines[i][j] == '['
-                    let paren = paren + 1
-                endif
-                if a:lines[i][j] == ')' || a:lines[i][j] == ']'
-                    let paren = paren - 1
-                    if paren < 0
-                        " Oops, too many closing parens in the middle
-                        return paren
-                    endif
+                let end = end[1:]
+            endif
+        endif
+        let i += 1
+    endwhile
+    return end
+endfunction
+
+" Return Lisp source code indentation at the given line
+function! SlimvIndent( lnum )
+    if a:lnum <= 1
+        " Start of the file
+        return 0
+    endif
+    let pnum = prevnonblank(a:lnum - 1)
+    if pnum == 0
+        " Hit the start of the file, use zero indent.
+        return 0
+    endif
+    " Use custom indentation only if default indenting is >2
+    let li = lispindent(a:lnum)
+    if li > 2
+        " Find start of current form
+        let [l, c] = searchpairpos( '(', '', ')', 'nbW', s:skip_sc, pnum )
+        " Use custom indentation only if default indenting is >2 from the opening paren in the previous line
+        if l == pnum && li > c + 1
+            let line = getline( l )
+            let parent = strpart( line, 0, c )
+            if match( parent, '\c(\s*\(flet\|labels\|macrolet\)\s*(\s*(\s*$' ) >= 0
+                " Handle special indentation style for flet, labels, etc.
+                return c + 1
+            endif
+            " Found opening paren in the previous line, let's find out the function name
+            let func = matchstr( line, '\<\k*\>', c )
+            if func != '' && g:slimv_swank && s:swank_connected
+                let s:indent = ''
+                silent execute 'python get_indent_info("' . func . '")'
+                if s:indent >= '0' && s:indent <= '9'
+                    " Function has &body argument, so indent by 2 spaces from the opening '('
+                    return c + 1
                 endif
             endif
-            let j = j + 1
-        endwhile
-        let i = i + 1
-    endwhile
-    return paren
-endfunction
+        endif
+    endif
+
+    " Use default Lisp indening
+    return li
+endfunction 
 
 " Send command line to REPL buffer
 " Arguments: close = add missing closing parens
@@ -1270,40 +1352,38 @@ function! SlimvSendCommand( close )
 
             " Build a possible multi-line command
             let l = lastline + 1
-            while l <= line("$") - 1
+            while l <= line("$")
                 call add( cmd, strpart( getline( l ), 0) )
                 let l = l + 1
             endwhile
 
             " Count the number of opening and closing braces
-            let paren = s:GetParenCount( cmd )
-            if paren > 0 && a:close
-                " Expression is not finished yet, add missing parens and evaluate it
-                while paren > 0
-                    let cmd[len(cmd)-1] = cmd[len(cmd)-1] . ')'
-                    let paren = paren - 1
-                endwhile
+            let end = s:CloseForm( cmd )
+            if end == 'ERROR'
+                " Too many closing parens
+                call SlimvErrorWait( "Too many or invalid closing parens found." )
+                return
             endif
-            if paren == 0
+            let echoing = 0
+            if a:close && end != ''
+                " Close form if necessary and evaluate it
+                let cmd[len(cmd)-1] = cmd[len(cmd)-1] . end
+                let end = ''
+                let echoing = 1
+            endif
+            if end == ''
                 " Expression finished, let's evaluate it
                 " but first add it to the history
                 call SlimvAddHistory( cmd )
-                " Evaluating without echoing
-                call SlimvSend( cmd, g:slimv_repl_open, 0 )
-            elseif paren < 0
-                " Too many closing braces
-                call SlimvErrorWait( "Too many closing parens found." )
+                " Evaluate, but echo only when form is actually closed here
+                call SlimvSend( cmd, g:slimv_repl_open, echoing )
             else
                 " Expression is not finished yet, indent properly and wait for completion
                 " Indentation works only if lisp indentation is switched on
-                let indent = ''
-                let i = lispindent( '.' )
-                while i > 0
-                    let indent = indent . ' '
-                    let i = i - 1
-                endwhile
-                call setline( ".", indent )
-                call SlimvEndOfReplBuffer()
+                let l = line('.') + 1
+                call append( '.', '' )
+                call setline( l, repeat( ' ', SlimvIndent(l) ) )
+                normal! j$
             endif
         endif
     else
@@ -1326,18 +1406,17 @@ function! SlimvCloseForm()
         call add( form, getline( l ) )
         let l = l + 1
     endwhile
-    let paren = s:GetParenCount( form )
-    if paren < 0
-        " Too many closing braces
-        call SlimvErrorWait( "Too many closing parens found." )
-    elseif paren > 0
+    let end = s:CloseForm( form )
+    if end == 'ERROR'
+        " Too many closing parens
+        call SlimvErrorWait( "Too many or invalid closing parens found." )
+    elseif end != ''
         " Add missing parens
-        let lastline = getline( l2 )
-        while paren > 0
-            let lastline = lastline . ')'
-            let paren = paren - 1
-        endwhile
-        call setline( l2, lastline )
+        if end[0] == "\n"
+            call append( l2, end[1:] )
+        else
+            call setline( l2, getline( l2 ) . end )
+        endif
     endif
     normal! %
 endfunction
@@ -1510,6 +1589,9 @@ function! SlimvArglist()
             endif
         endif
     endif
+
+    " Return empty string because this function is called from an insert mode mapping
+    return ''
 endfunction
 
 " Start and connect slimv server
@@ -2299,7 +2381,11 @@ endfunction
 function! SlimvComplete( base )
     " Find all symbols starting with "a:base"
     if g:slimv_swank && s:swank_connected
-        let msg = SlimvCommandGetResponse( ':simple-completions', 'python swank_completions("' . a:base . '")' )
+        if g:slimv_simple_compl
+            let msg = SlimvCommandGetResponse( ':simple-completions', 'python swank_completions("' . a:base . '")' )
+        else
+            let msg = SlimvCommandGetResponse( ':fuzzy-completions', 'python swank_fuzzy_completions("' . a:base . '")' )
+        endif
         if msg != ''
             " We have a completion list from SWANK
             let res = split( msg, '\n' )
@@ -2369,7 +2455,10 @@ endfunction
 " Set current package
 function! SlimvSetPackage()
     if s:swank_connected
-        let pkg = input( 'Package: ' )
+        let oldpos = getpos( '.' )
+        call SlimvFindPackage()
+        call setpos( '.', oldpos )
+        let pkg = input( 'Package: ', s:swank_package )
         if pkg != ''
             let s:refresh_disabled = 1
             call SlimvCommand( 'python swank_set_package("' . pkg . '")' )
@@ -2410,7 +2499,7 @@ endfunction
 
 if g:slimv_swank
     " Map space to display function argument list in status line
-    inoremap <silent> <Space>    <Space><C-O>:call SlimvArglist()<CR>
+    inoremap <silent> <Space>    <Space><C-R>=SlimvArglist()<CR>
     "noremap  <silent> <C-C>      :call SlimvInterrupt()<CR>
     au InsertLeave * :let &showmode=s:save_showmode
 endif
