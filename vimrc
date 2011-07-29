@@ -118,7 +118,7 @@ elseif has("gui_macvim")
 endif
 
 if &t_Co >= 256 || has("gui_running")
-	colorscheme kraih2
+	colorscheme kraihlight
 	set guioptions-=r
 	set go-=L
 	set go-=T
