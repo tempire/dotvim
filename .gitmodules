@@ -43,3 +43,6 @@
 [submodule "bundle/tlib"]
 	path = bundle/tlib
 	url = git://github.com/tomtom/tlib_vim.git
+[submodule "bundle/vimerl"]
+	path = bundle/vimerl
+	url = git://github.com/oscarh/vimerl.git
