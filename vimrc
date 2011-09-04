@@ -41,7 +41,8 @@ syntax on
 
 set textwidth=79
 set formatoptions=qrn1
-if version >= 703
+"if version >= 703
+if exists('+colorcolumn')
 	set colorcolumn=80
 endif
 
@@ -111,13 +112,14 @@ if has("gui_gnome")
 	set listchars=tab:▸\ ,eol:¬,extends:#,nbsp:.,trail:.
 
 elseif has("gui_macvim")
-	set guifont=Menlo\ bold:h12
-	"set guifont=Menlo:h11
+	"set guifont=Menlo:h12
+	set guifont=Monaco:h12
 	set list
 	set listchars=tab:▸\ ,eol:¬,extends:#,nbsp:.,trail:.
 endif
 
 if &t_Co >= 256 || has("gui_running")
+	set guifont=Monaco:h12
 	colorscheme kraihlight
 	set guioptions-=r
 	set go-=L
@@ -131,6 +133,9 @@ set numberwidth=5
 set cursorline
 set cursorcolumn
 
+" turn off cursor blinking
+set guicursor+=a:blinkon0
+
 function! StatuslineCurrentHighlight()
     let name = synIDattr(synID(line('.'),col('.'),1),'name')
     if name == ''
@@ -139,16 +144,6 @@ function! StatuslineCurrentHighlight()
         return '[' . name . ']'
     endif
 endfunction
-
-"" disable blinking cursor
-" set guicursor+=a:blinkon0
-"" disable autocomplete
-" AcpDisable
-"" disable colorcolumn
-" set colorcolumn=0
-" set guifont=Menlo\ bold:h14
-" set ts=2
-" set sw=2
 
 " shortcuts
 inoremap jj <Esc>
@@ -203,6 +198,9 @@ vmap <c-up> xkP`[V`]
 vmap <c-down> xp`[V`]
 "vmap <c-up> [egv
 "vmap <c-down> ]egv
+
+"Insert on empty line, with lines above and below (for mojocasts)
+nmap oo o<Esc>O
 
 " autocompletion
 imap <Leader><Tab> <C-X><C-O>
@@ -318,4 +316,17 @@ function! StatuslineCurrentHighlight()
     else
         return '[' . name . ']'
     endif
+endfunction
+
+function! ScreencastPrep()
+  " disable blinking cursor
+  set guicursor+=n:hor10-blinkon0 
+  " disable autocomplete
+  AcpDisable
+  " disable colorcolumn
+  set colorcolumn=0
+  "set guifont=Menlo:h14
+  set guifont=Monaco:h13
+  set ts=2
+  set sw=2
 endfunction

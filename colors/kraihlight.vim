@@ -11,7 +11,9 @@ let colors_name = "kraihlight"
 hi Visual guibg=#404040 ctermbg=238
 hi Cursor guibg=#b0d0f0 ctermbg=117
 
-hi Normal guifg=#f9f9f9 guibg=#1a1a1a ctermfg=254
+hi Normal guifg=#f9f9f9 guibg=#141414 ctermfg=254
+"hi Normal guifg=#f9f9f9 guibg=#1a1a1a ctermfg=254
+"hi Normal guifg=#f9f9f9 guibg=#0C0C0C ctermfg=254
 hi Underlined guifg=#f9f9f9 guibg=NONE gui=underline ctermfg=254
 hi NonText guifg=#34383c guibg=NONE ctermfg=240
 hi SpecialKey guifg=#303030 guibg=NONE ctermfg=239
