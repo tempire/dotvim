@@ -1,6 +1,10 @@
+" slimv options
 let g:slimv_keybindings=1
 let g:lisp_rainbow=1
 let g:slimv_leader=',s'
+
+" Gist options - put code in clipboard
+let g:gist_clip_command = 'pbcopy'
 
 " Use our user unless we have a sudo user, then is it
 let luser = substitute(system('whoami'), '\n', '', '')
