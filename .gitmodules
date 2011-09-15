@@ -49,3 +49,6 @@
 [submodule "bundle/gist"]
 	path = bundle/gist
 	url = https://github.com/mattn/gist-vim.git
+[submodule "bundle/conque"]
+	path = bundle/conque
+	url = https://github.com/vim-scripts/Conque-Shell.git
