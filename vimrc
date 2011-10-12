@@ -13,8 +13,9 @@ if strlen($SUDO_USER)
 endif
 
 " pathogen
-silent! call pathogen#runtime_append_all_bundles()
-silent! call pathogen#helptags()
+call pathogen#infect()
+"silent! call pathogen#runtime_append_all_bundles()
+"silent! call pathogen#helptags()
 
 set number
 set nocompatible
@@ -219,6 +220,10 @@ noremap K :!perldoc <cword> <bar><bar> perldoc -f <cword><cr>
 au BufRead,BufNewFile *.asd,*.lisp set filetype=lisp
 au BufRead,BufNewFile *.t,*.cgi set filetype=perl
 au BufRead,BufNewFile *.conf set filetype=apache
+au BufRead,BufNewFile *.app set filetype=erlang
+
+" compile erlang files
+autocmd BufRead,BufNewFile *.erl nmap <Leader>C :!erlc %<cr>
 
 " save/retrieve folds automatically
 au BufWinLeave * silent! mkview
