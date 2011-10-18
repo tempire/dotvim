@@ -74,6 +74,11 @@ set smartcase
 set visualbell
 set noerrorbells
 set hlsearch
+set history=500
+
+" scrolling
+set ruler
+set scrolloff=5 " Scroll with 5 line buffer
 
 " clear recent search highlighting with space
 :nnoremap <silent> <Space> :nohlsearch<Bar>:echo<CR>
