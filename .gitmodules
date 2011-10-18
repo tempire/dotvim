@@ -52,3 +52,6 @@
 [submodule "bundle/conque"]
 	path = bundle/conque
 	url = https://github.com/vim-scripts/Conque-Shell.git
+[submodule "bundle/matchit"]
+	path = bundle/matchit
+	url = git://github.com/mhz/vim-matchit.git
