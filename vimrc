@@ -5,6 +5,8 @@ let g:slimv_leader=',s'
 
 " Gist options - put code in clipboard
 let g:gist_clip_command = 'pbcopy'
+let g:gist_detect_filetype = 1
+let g:gist_open_browser_after_post = 1
 
 " Use our user unless we have a sudo user, then is it
 let luser = substitute(system('whoami'), '\n', '', '')
@@ -274,6 +276,9 @@ augroup END
 autocmd BufRead,BufNewFile *.t,*.pl,*.plx,*.pm command! -range=% -nargs=* Tidy <line1>,<line2>!perltidy -q
 autocmd BufRead,BufNewFile *.t,*.pl,*.plx,*.pm noremap <Leader>pt :Tidy<CR>
 
+"au BufRead,BufNewFile *.json set filetype=javascript foldmethod=syntax
+"au FileType json command -range=% -nargs=* Tidy <line1><line2>! json_xs -f json -t json-pretty
+
 " xmlfolding
 au BufNewFile,BufRead *.xml,*.htm,*.html so bundle/plugin/XMLFolding.vim
 
@@ -340,7 +345,8 @@ function! ScreencastPrep()
   " disable colorcolumn
   set colorcolumn=0
   "set guifont=Menlo:h14
-  set guifont=Monaco:h13
+  set guifont=Monaco:h14
   set ts=2
   set sw=2
+  NoMatchParen "opposite: DoMatchParen
 endfunction

@@ -55,3 +55,6 @@
 [submodule "bundle/matchit"]
 	path = bundle/matchit
 	url = git://github.com/mhz/vim-matchit.git
+[submodule "bundle/ctrlp"]
+	path = bundle/ctrlp
+	url = git://github.com/kien/ctrlp.vim.git
