@@ -46,15 +46,15 @@
 [submodule "bundle/vimerl"]
 	path = bundle/vimerl
 	url = git://github.com/oscarh/vimerl.git
-[submodule "bundle/gist"]
-	path = bundle/gist
-	url = https://github.com/mattn/gist-vim.git
-[submodule "bundle/conque"]
-	path = bundle/conque
-	url = https://github.com/vim-scripts/Conque-Shell.git
 [submodule "bundle/matchit"]
 	path = bundle/matchit
 	url = git://github.com/mhz/vim-matchit.git
 [submodule "bundle/ctrlp"]
 	path = bundle/ctrlp
 	url = git://github.com/kien/ctrlp.vim.git
+[submodule "bundle/conque"]
+	path = bundle/conque
+	url = git://github.com/vim-scripts/Conque-Shell.git
+[submodule "bundle/gist"]
+	path = bundle/gist
+	url = git://github.com/mattn/gist-vim.git
