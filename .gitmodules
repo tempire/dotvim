@@ -61,3 +61,6 @@
 [submodule "bundle/haskell-templates"]
 	path = bundle/haskell-templates
 	url = git://github.com/pbrisbin/html-template-syntax.git
+[submodule "bundle/slimv"]
+	path = bundle/slimv
+	url = git://github.com/tempire/slimv.git
