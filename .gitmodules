@@ -58,3 +58,6 @@
 [submodule "bundle/gist"]
 	path = bundle/gist
 	url = git://github.com/mattn/gist-vim.git
+[submodule "bundle/haskell-templates"]
+	path = bundle/haskell-templates
+	url = git://github.com/pbrisbin/html-template-syntax.git
