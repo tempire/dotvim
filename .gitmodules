@@ -64,3 +64,9 @@
 [submodule "bundle/conque"]
 	path = bundle/conque
 	url = git://github.com/tempire/conque.git
+[submodule "bundle/haskellmode-vim"]
+	path = bundle/haskellmode-vim
+	url = git://github.com/lukerandall/haskellmode-vim.git
+[submodule "bundle/haskellfold"]
+	path = bundle/haskellfold
+	url = git://github.com/Twinside/vim-haskellFold.git

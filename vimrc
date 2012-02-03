@@ -177,6 +177,7 @@ map <Leader>x :!perl -Ilib %<cr>
 map <leader><space> :CommandT<cr>
 map <leader>H :call HexHighlight()<cr>
 map <leader>tts :%s/\s\+$//<cr>
+map <leader>term :ConqueTerm bash<cr>
 "
 " cd to directory of current file
 map <leader>cd :cd %:p:h<cr>
@@ -217,6 +218,10 @@ nmap oo o<Esc>O
 " autocompletion
 imap <Leader><Tab> <C-X><C-O>
 
+" Autocomplpop perl autocompletion
+let g:acp_behaviorPerlOmniLength = 1
+let g:acp_completeoptPreview = 0
+
 " perldoc for module || perl command
 noremap K :!perldoc <cword> <bar><bar> perldoc -f <cword><cr>
 " Opens nerdtree and puts focus in edited file
@@ -228,6 +233,11 @@ au BufRead,BufNewFile *.asd,*.lisp set filetype=lisp
 au BufRead,BufNewFile *.t,*.cgi set filetype=perl
 au BufRead,BufNewFile *.conf set filetype=apache
 au BufRead,BufNewFile *.app set filetype=erlang
+
+" haskell support
+au Bufenter *.hs compiler ghc
+let g:haddock_browser = "open"
+let g:haddock_browser_callformat = "%s %s"
 
 " compile erlang files
 autocmd BufRead,BufNewFile *.erl nmap <Leader>C :!erlc %<cr>
