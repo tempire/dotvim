@@ -59,6 +59,6 @@ hi Error guibg=#602020 ctermfg=52
 "
 hi CursorLine guifg=NONE guibg=#000000 gui=none
 hi CursorColumn guifg=NONE guibg=#000000 gui=none
-hi Pmenu guifg=#f6f3e8 guibg=gray30
-hi PmenuSel guifg=#000000 guibg=#cae682
-hi ColorColumn guifg=#303030 guibg=#303030 gui=NONE ctermfg=239 ctermbg=239
+hi Pmenu guifg=#602020 guibg=gray30
+hi PmenuSel guifg=#000000 guibg=#602020
+hi ColorColumn guifg=NONE guibg=#303030 gui=NONE ctermfg=239 ctermbg=239

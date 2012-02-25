@@ -235,9 +235,10 @@ au BufRead,BufNewFile *.conf set filetype=apache
 au BufRead,BufNewFile *.app set filetype=erlang
 
 " haskell support
-au Bufenter *.hs compiler ghc
+au BufEnter *.hs,*.lhs compiler ghc
 let g:haddock_browser = "open"
 let g:haddock_browser_callformat = "%s %s"
+autocmd BufEnter *.hs,*.lhs nmap gfw <C-W><C-F><cr>
 
 " compile erlang files
 autocmd BufRead,BufNewFile *.erl nmap <Leader>C :!erlc %<cr>
@@ -283,8 +284,8 @@ autocmd BufRead *.mkd  set ai formatoptions=tcroqn2 comments=n:&gt;
 augroup END
 
 " perltidy
-autocmd BufRead,BufNewFile *.t,*.pl,*.plx,*.pm command! -range=% -nargs=* Tidy <line1>,<line2>!perltidy -q
-autocmd BufRead,BufNewFile *.t,*.pl,*.plx,*.pm noremap <Leader>pt :Tidy<CR>
+autocmd BufRead,BufNewFile *.t,*.pl,*.plx,*.pm,*.PL command! -range=% -nargs=* Tidy <line1>,<line2>!perltidy -q
+autocmd BufRead,BufNewFile *.t,*.pl,*.plx,*.pm,*.PL noremap <Leader>pt :Tidy<CR>
 
 "au BufRead,BufNewFile *.json set filetype=javascript foldmethod=syntax
 "au FileType json command -range=% -nargs=* Tidy <line1><line2>! json_xs -f json -t json-pretty
