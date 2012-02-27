@@ -284,11 +284,14 @@ autocmd BufRead *.mkd  set ai formatoptions=tcroqn2 comments=n:&gt;
 augroup END
 
 " perltidy
-autocmd BufRead,BufNewFile *.t,*.pl,*.plx,*.pm,*.PL command! -range=% -nargs=* Tidy <line1>,<line2>!perltidy -q
-autocmd BufRead,BufNewFile *.t,*.pl,*.plx,*.pm,*.PL noremap <Leader>pt :Tidy<CR>
+au FileType perl command! -range=% -nargs=* Tidy <line1>,<line2>!perltidy -q
+au FileType perl nmap <Leader>pt :Tidy<cr> " normal mode
+au FileType perl vmap <Leader>pt :Tidy<cr> " visual mode
 
-"au BufRead,BufNewFile *.json set filetype=javascript foldmethod=syntax
-"au FileType json command -range=% -nargs=* Tidy <line1><line2>! json_xs -f json -t json-pretty
+au FileType json set filetype=javascript foldmethod=syntax
+au FileType json command! -range=% -nargs=* Tidy <line1>,<line2>!json_xs -f json -t json-pretty
+au FileType json nmap <Leader>pt :Tidy<cr> " normal mode
+au FileType json vmap <Leader>pt :Tidy<cr> " visual mode
 
 " xmlfolding
 au BufNewFile,BufRead *.xml,*.htm,*.html so bundle/plugin/XMLFolding.vim
