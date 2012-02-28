@@ -56,19 +56,15 @@ endif
 " folding
 set foldmethod=indent
 
-" command-t search large trees
-let g:CommandTMaxFiles=20000
+" mojo
 let mojo_highlight_data = 1
 
-"
 " Sidebar folder navigation
 let NERDTreeShowLineNumbers=1
 let NERDTreeShowBookmarks=1
 let NERDTreeChDirMode=2
 let NERDTreeWinSize=35
 let NERDTreeIgnore=['CVS']
-
-let mojo_highlight_data = 1
 
 set incsearch
 set ignorecase
@@ -174,7 +170,6 @@ map <Leader>cs :colorscheme sri<cr>
 map <Leader>f :TlistToggle<cr>
 map <Leader>M :!morbo %<cr>
 map <Leader>x :!perl -Ilib %<cr>
-map <leader><space> :CommandT<cr>
 map <leader>H :call HexHighlight()<cr>
 map <leader>tts :%s/\s\+$//<cr>
 map <leader>term :ConqueTerm bash<cr>
@@ -283,11 +278,17 @@ augroup mkd
 autocmd BufRead *.mkd  set ai formatoptions=tcroqn2 comments=n:&gt;
 augroup END
 
+" open installed perl modules
+au FileType perl command! -nargs=1 PerlModuleSource :tabnew `perldoc -lm <args>`
+au FileType perl setlocal iskeyword+=:
+au FileType perl noremap <leader>P :PerlModuleSource <cword><cr>zR<cr>
+
 " perltidy
 au FileType perl command! -range=% -nargs=* Tidy <line1>,<line2>!perltidy -q
 au FileType perl nmap <Leader>pt :Tidy<cr> " normal mode
 au FileType perl vmap <Leader>pt :Tidy<cr> " visual mode
 
+" json tidy
 au FileType json set filetype=javascript foldmethod=syntax
 au FileType json command! -range=% -nargs=* Tidy <line1>,<line2>!json_xs -f json -t json-pretty
 au FileType json nmap <Leader>pt :Tidy<cr> " normal mode
