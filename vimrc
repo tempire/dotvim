@@ -186,6 +186,8 @@ map <leader>rt :!sandbox rtest %<cr>
 map <leader>diff :!sandbox diff %<cr>
 nnoremap <F5> :GundoToggle<cr>
 
+" http://vim.wikia.com/wiki/Redirect_g_search_output
+nmap <leader>s :redir @a<cr>:g//<cr>:redir END<cr>:new<cr>:put! a<cr><cr>zRggd<cr>
 
 " Move single lines up-down
 nmap <c-up> ddkP
@@ -233,6 +235,7 @@ au BufRead,BufNewFile *.app set filetype=erlang
 au BufEnter *.hs,*.lhs compiler ghc
 let g:haddock_browser = "open"
 let g:haddock_browser_callformat = "%s %s"
+let g:haddock_docdir = "/Users/glen/.cabal/share/doc"
 autocmd BufEnter *.hs,*.lhs nmap gfw <C-W><C-F><cr>
 
 " compile erlang files
