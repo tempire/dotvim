@@ -76,7 +76,7 @@ set history=500
 
 " scrolling
 set ruler
-set scrolloff=5 " Scroll with 5 line buffer
+set scrolloff=10 " Scroll with 10 line buffer
 
 " clear recent search highlighting with space
 :nnoremap <silent> <Space> :nohlsearch<Bar>:echo<CR>
