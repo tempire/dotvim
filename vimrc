@@ -173,6 +173,7 @@ map <Leader>x :!perl -Ilib %<cr>
 map <leader>H :call HexHighlight()<cr>
 map <leader>tts :%s/\s\+$//<cr>
 map <leader>term :ConqueTerm bash<cr>
+map <leader>b :TagbarToggle<cr>
 "
 " cd to directory of current file
 map <leader>cd :cd %:p:h<cr>
