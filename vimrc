@@ -216,8 +216,11 @@ nmap oo o<Esc>O
 imap <Leader><Tab> <C-X><C-O>
 
 " Autocomplpop perl autocompletion
-let g:acp_behaviorPerlOmniLength = 1
+let g:acp_behaviorPerlOmniLength = 4
 let g:acp_completeoptPreview = 0
+
+" local set in perlomni.vim plugin does not work as expected..set globally
+set omnifunc=PerlComplete
 
 " perldoc for module || perl command
 noremap K :!perldoc <cword> <bar><bar> perldoc -f <cword><cr>

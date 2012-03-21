@@ -24,7 +24,7 @@
 	url = git://github.com/scrooloose/nerdcommenter.git
 [submodule "bundle/perlomni"]
 	path = bundle/perlomni
-	url = git://github.com/vim-scripts/perlomni.vim.git
+	url = git://github.com/c9s/perlomni.vim.git
 [submodule "bundle/autocomplpop"]
 	path = bundle/autocomplpop
 	url = git://github.com/vim-scripts/AutoComplPop.git
