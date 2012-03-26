@@ -76,3 +76,6 @@
 [submodule "bundle/tagbar"]
 	path = bundle/tagbar
 	url = git://github.com/vim-scripts/Tagbar.git
+[submodule "bundle/vim2hs"]
+	path = bundle/vim2hs
+	url = git://github.com/dag/vim2hs.git
