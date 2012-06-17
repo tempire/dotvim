@@ -30,8 +30,8 @@ filetype plugin on
 filetype indent on
 
 " folding
-let perl_fold=1
-let perl_extended_vars = 1
+"let perl_fold=1
+"let perl_extended_vars = 1
 
 set laststatus=2
 
@@ -291,8 +291,8 @@ au FileType perl setlocal iskeyword+=:
 au FileType perl noremap <leader>P :PerlModuleSource <cword><cr>zR<cr>
 
 " perltidy
-au FileType perl command! -range=% -nargs=* Tidy <line1>,<line2>!perltidy -q
-au FileType perl nmap <Leader>pt :Tidy<cr> " normal mode
+au FileType perl command! -range=% -nargs=* Tidy <line1>,<line2>!perltidy
+au FileType perl nmap <Leader>pt mz:Tidy<cr>'z:delmarks z<cr> " normal mode
 au FileType perl vmap <Leader>pt :Tidy<cr> " visual mode
 
 " json tidy
@@ -302,13 +302,10 @@ au FileType json nmap <Leader>pt :Tidy<cr> " normal mode
 au FileType json vmap <Leader>pt :Tidy<cr> " visual mode
 
 " xmlfolding
-au BufNewFile,BufRead *.xml,*.htm,*.html so bundle/plugin/XMLFolding.vim
+"au BufNewFile,BufRead *.xml,*.htm,*.html so bundle/plugin/XMLFolding.vim
 
 " ack shortcut
 let g:ackprg="ack-grep -H --nocolor --nogroup --column"
-
-" who put this in?
-au! Syntax newlang source $VIM/syntax/nt.vim
 
 " Show syntax highlighting groups for word under cursor
 nmap <C-S-P> :call <SID>SynStack()<CR>
@@ -368,6 +365,21 @@ function! ScreencastPrep()
   set colorcolumn=0
   "set guifont=Menlo:h14
   set guifont=Monaco:h14
+  set ts=2
+  set sw=2
+  NoMatchParen "opposite: DoMatchParen
+endfunction
+
+function! ScreencastPrep1080()
+  " disable blinking cursor
+  set guicursor+=n:hor10-blinkon0 
+  " disable autocomplete
+  AcpDisable
+  " disable colorcolumn
+  set colorcolumn=0
+  "set guifont=Menlo:h20
+  "set guifont=Monaco:h26
+  set guifont=Consolas:h29
   set ts=2
   set sw=2
   NoMatchParen "opposite: DoMatchParen
