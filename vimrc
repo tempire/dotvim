@@ -131,7 +131,7 @@ endif
 
 if &t_Co >= 256 || has("gui_running")
 	set guifont=Monaco:h12
-	colorscheme kraihlight
+	colorscheme tempire
 	set guioptions-=r
 	set go-=L
 	set go-=T

@@ -25,3 +25,8 @@ If your shell login is *purl*, create the file *~/.vim/vimrc.purl*.
 
 All custom vim configuration will override the dotvim defaults.
 
+<img src="http://images.tempi.re/dotvim_screenshot_1_for_github_readme_2012-08-06-20120806-185029.jpg" />
+
+<img src="http://images.tempi.re/dotvim_screenshot_2_for_github_readme_2012-08-06-20120806-185109.jpg" />
+
+<img src="http://images.tempi.re/dotvim_screenshot_3_for_github_readme-20120806-185308.jpg" />
