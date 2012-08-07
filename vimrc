@@ -89,20 +89,23 @@ set nobackup
 set noswapfile
 
 " git branch
-set statusline=%f " tail of the filename
-
-"set statusline+=%{fugitive#statusline()}
+set statusline=%f\ " tail of the filename
+"set statusline=
+set statusline+=%{fugitive#statusline()}
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
 
 set statusline+=%=      "left/right separator
-set statusline+=%{StatuslineCurrentHighlight()}\ \ "current highlight
+set statusline+=%{StatuslineCurrentHighlight()}\ "current highlight
 set statusline+=%c,     "cursor column
 set statusline+=%l/%L   "cursor line/total lines
-set statusline+=\ %P    "percent through file
+set statusline+=\ %P\    "percent through file
 set laststatus=2        " Always show status line
 
 " warning for mixed indenting
 set statusline+=%#error#
-set statusline+=%{StatuslineTabWarning()}
+set statusline+=%{StatuslineMixedIndentingWarning()}
 set statusline+=%*
 
 set statusline+=%h      "help file flag
@@ -217,11 +220,11 @@ nmap oo o<Esc>O
 imap <Leader><Tab> <C-X><C-O>
 
 " Autocomplpop perl autocompletion
-let g:acp_behaviorPerlOmniLength = 4
-let g:acp_completeoptPreview = 0
+"let g:acp_behaviorPerlOmniLength = 4
+"let g:acp_completeoptPreview = 0
 
 " local set in perlomni.vim plugin does not work as expected..set globally
-set omnifunc=PerlComplete
+"set omnifunc=PerlComplete
 
 " perldoc for module || perl command
 noremap K :!perldoc <cword> <bar><bar> perldoc -f <cword><cr>
@@ -236,11 +239,20 @@ au BufRead,BufNewFile *.conf set filetype=apache
 au BufRead,BufNewFile *.app set filetype=erlang
 
 " haskell support
-au BufEnter *.hs,*.lhs compiler ghc
-let g:haddock_browser = "open"
-let g:haddock_browser_callformat = "%s %s"
-let g:haddock_docdir = "/Users/glen/.cabal/share/doc"
-autocmd BufEnter *.hs,*.lhs nmap gfw <C-W><C-F><cr>
+"au BufEnter *.hs,*.lhs compiler ghc
+"let g:haddock_browser = "open"
+"let g:haddock_browser_callformat = "%s %s"
+"let g:haddock_docdir = "/Users/glen/.cabal/share/doc"
+"autocmd BufEnter *.hs,*.lhs nmap gfw <C-W><C-F><cr>
+" vim2hs
+let g:haskell_conceal_wide = 1
+let g:neocomplcache_enable_at_startup = 1
+let g:acp_enableAtStartup = 0
+let g:neocomplcache_enable_smart_case = 1
+let g:neocomplcache_enable_camel_case_completion = 1
+let g:neocomplcache_enable_underbar_completion = 1
+let g:neocomplcache_min_syntax_length = 3
+let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
 
 " compile erlang files
 autocmd BufRead,BufNewFile *.erl nmap <Leader>C :!erlc %<cr>
@@ -295,6 +307,11 @@ au FileType perl command! -range=% -nargs=* Tidy <line1>,<line2>!perltidy
 au FileType perl nmap <Leader>pt mz:Tidy<cr>'z:delmarks z<cr> " normal mode
 au FileType perl vmap <Leader>pt :Tidy<cr> " visual mode
 
+" csstidy
+au FileType css command! -range=% -nargs=* Tidy <line1>,<line2>!csstidy
+au FileType css nmap <Leader>pt mz:Tidy<cr>'z:delmarks z<cr> " normal mode
+au FileType css vmap <Leader>pt :Tidy<cr> " visual mode
+
 " json tidy
 au FileType json set filetype=javascript foldmethod=syntax
 au FileType json command! -range=% -nargs=* Tidy <line1>,<line2>!json_xs -f json -t json-pretty
@@ -330,7 +347,7 @@ function! s:align()
   endif
 endfunction
 
-function! StatuslineTabWarning()
+function! StatuslineMixedIndentingWarning()
     if !exists("b:statusline_tab_warning")
         let tabs = search('^\t', 'nw') != 0
         let spaces = search('^ ', 'nw') != 0
