@@ -103,3 +103,6 @@
 [submodule "bundle/indent-guides"]
 	path = bundle/indent-guides
 	url = git://github.com/nathanaelkane/vim-indent-guides.git
+[submodule "bundle/vimproc"]
+	path = bundle/vimproc
+	url = git://github.com/Shougo/vimproc.git

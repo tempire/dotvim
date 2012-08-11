@@ -19,6 +19,10 @@ call pathogen#infect()
 "silent! call pathogen#runtime_append_all_bundles()
 "silent! call pathogen#helptags()
 
+" turn on indent-guides
+autocmd VimEnter * IndentGuidesEnable
+"let g:indent_guides_guide_size=1
+
 set number
 set nocompatible
 
@@ -238,13 +242,7 @@ au BufRead,BufNewFile *.t,*.cgi set filetype=perl
 au BufRead,BufNewFile *.conf set filetype=apache
 au BufRead,BufNewFile *.app set filetype=erlang
 
-" haskell support
-"au BufEnter *.hs,*.lhs compiler ghc
-"let g:haddock_browser = "open"
-"let g:haddock_browser_callformat = "%s %s"
-"let g:haddock_docdir = "/Users/glen/.cabal/share/doc"
-"autocmd BufEnter *.hs,*.lhs nmap gfw <C-W><C-F><cr>
-" vim2hs
+" haskell support (vim2hs)
 let g:haskell_conceal_wide = 1
 let g:neocomplcache_enable_at_startup = 1
 let g:acp_enableAtStartup = 0
@@ -325,17 +323,17 @@ au FileType json vmap <Leader>pt :Tidy<cr> " visual mode
 let g:ackprg="ack-grep -H --nocolor --nogroup --column"
 
 " Show syntax highlighting groups for word under cursor
-nmap <C-S-P> :call <SID>SynStack()<CR>
-function! <SID>SynStack()
-  if !exists("*synstack")
-    return
-  endif
-  echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
-endfunc
+"nmap <C-S-P> :call <SID>SynStack()<CR>
+"function! <SID>SynStack()
+  "if !exists("*synstack")
+    "return
+  "endif
+  "echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
+"endfunc
 
 inoremap <silent> <Bar>   <Bar><Esc>:call <SID>align()<CR>a
 
-" Automagic tabularize
+" Automatic tabularize with pipes |
 function! s:align()
   let p = '^\s*|\s.*\s|\s*$'
   if exists(':Tabularize') && getline('.') =~# '^\s*|' && (getline(line('.')-1) =~# p || getline(line('.')+1) =~# p)

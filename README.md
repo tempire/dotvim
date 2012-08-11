@@ -17,6 +17,14 @@
 
     ln -s ~/.vim/vimrc ~/.vimrc
 
+### If you're using Haskell...
+
+cabal install ghc-mod # Install cabal
+
+cd $HOME/.vim/bundle/vimproc
+make -f make_mac.mak # For Mac (use appropriate file for platform)
+
+
 ## Customization
 
     ~/.vim/vimrc.$USER
