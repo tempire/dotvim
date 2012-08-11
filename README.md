@@ -19,10 +19,10 @@
 
 ### If you're using Haskell...
 
-cabal install ghc-mod # Install cabal
+    cabal install ghc-mod # Install cabal
 
-cd $HOME/.vim/bundle/vimproc
-make -f make_mac.mak # For Mac (use appropriate file for platform)
+    cd $HOME/.vim/bundle/vimproc
+    make -f make_mac.mak # For Mac (use appropriate file for platform)
 
 
 ## Customization
