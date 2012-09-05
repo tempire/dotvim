@@ -106,3 +106,9 @@
 [submodule "bundle/vimproc"]
 	path = bundle/vimproc
 	url = git://github.com/Shougo/vimproc.git
+[submodule "bundle/jsbeautify"]
+	path = bundle/jsbeautify
+	url = git://github.com/maksimr/vim-jsbeautify.git
+[submodule "bundle/markdown"]
+	path = bundle/markdown
+	url = git://github.com/plasticboy/vim-markdown.git
