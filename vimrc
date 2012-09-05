@@ -117,8 +117,8 @@ set statusline+=%y      "filetype
 set statusline+=%r      "read only flag
 set statusline+=%m      "modified flag
 
-"set list
-"set listchars=tab:.\ ,trail:.,extends:#,nbsp:.
+set list
+set listchars=tab:.\ ,trail:.,extends:#,nbsp:.
 
 " font
 if has("gui_gnome")
