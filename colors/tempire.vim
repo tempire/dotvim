@@ -6,7 +6,8 @@ if exists("syntax_on")
   syntax reset
 endif
 
-let colors_name = "kraihlight"
+let colors_name = "tempire"
+set linespace=5
 
 hi Visual guibg=#404040 ctermbg=238
 hi Cursor guibg=#b0d0f0 ctermbg=117
@@ -62,7 +63,8 @@ hi Error guibg=#602020 ctermfg=52
 hi CursorLine guifg=NONE guibg=#000000 gui=none
 hi CursorColumn guifg=NONE guibg=#000000 gui=none
 "hi Pmenu guifg=#602020 guibg=gray30
-hi Pmenu guifg=#000000 guibg=#9CBBDE gui=bold
+"hi Pmenu guifg=#000000 guibg=#9CBBDE gui=bold
+hi Pmenu guifg=#ffffff guibg=#0087AF gui=bold
 "hi PmenuSel guifg=#000000 guibg=#602020
 hi PmenuSel guifg=#000000 guibg=#ffffff
 hi ColorColumn guifg=NONE guibg=#303030 gui=NONE ctermfg=239 ctermbg=239

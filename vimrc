@@ -92,33 +92,35 @@ cmap w!! w !sudo tee % >/dev/null
 set nobackup
 set noswapfile
 
-" git branch
-set statusline=%f\ " tail of the filename
-"set statusline=
-set statusline+=%{fugitive#statusline()}
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
-set statusline+=%=      "left/right separator
-set statusline+=%{StatuslineCurrentHighlight()}\ "current highlight
-set statusline+=%c,     "cursor column
-set statusline+=%l/%L   "cursor line/total lines
-set statusline+=\ %P\    "percent through file
-set laststatus=2        " Always show status line
-
-" warning for mixed indenting
-set statusline+=%#error#
-set statusline+=%{StatuslineMixedIndentingWarning()}
-set statusline+=%*
-
-set statusline+=%h      "help file flag
-set statusline+=%y      "filetype
-set statusline+=%r      "read only flag
-set statusline+=%m      "modified flag
+"" git branch
+"set statusline=%f\ " tail of the filename
+""set statusline=
+"set statusline+=%{fugitive#statusline()}
+"set statusline+=%#warningmsg#
+"set statusline+=%{SyntasticStatuslineFlag()}
+"set statusline+=%*
+"
+"set statusline+=%=      "left/right separator
+"set statusline+=%{StatuslineCurrentHighlight()}\ "current highlight
+"set statusline+=%c,     "cursor column
+"set statusline+=%l/%L   "cursor line/total lines
+"set statusline+=\ %P\    "percent through file
+"set laststatus=2        " Always show status line
+"
+"" warning for mixed indenting
+"set statusline+=%#error#
+"set statusline+=%{StatuslineMixedIndentingWarning()}
+"set statusline+=%*
+"
+"set statusline+=%h      "help file flag
+"set statusline+=%y      "filetype
+"set statusline+=%r      "read only flag
+"set statusline+=%m      "modified flag
 
 set list
 set listchars=tab:.\ ,trail:.,extends:#,nbsp:.
+
+colorscheme jellybeans
 
 " font
 if has("gui_gnome")
@@ -128,20 +130,24 @@ if has("gui_gnome")
 
 elseif has("gui_macvim")
   "set guifont=Menlo:h12
-  set guifont=Monaco:h12
+  "set guifont=Monaco:h12
+  set guifont=Monaco\ for\ Powerline:h12
+  let g:Powerline_symbols = 'fancy'
   set list
   set listchars=tab:▸\ ,eol:¬,extends:#,nbsp:.,trail:.
 endif
 
-if &t_Co >= 256 || has("gui_running")
-  set guifont=Monaco:h12
+"if &t_Co >= 256 || has("gui_running")
+if has("gui_running")
+  "set guifont=Monaco:h12
   colorscheme tempire
   set guioptions-=r
   set go-=L
   set go-=T
 else
-  colorscheme ir_black
+  colorscheme jellybeans
 endif
+
 
 " line tracking
 set numberwidth=5
@@ -173,7 +179,7 @@ map <Leader>h :tabprevious<cr>
 map <Leader>l :tabnext<cr>
 map <Leader>w :tabclose<cr>
 map <Leader>pd :!perldoc %<cr>
-map <Leader>cs :colorscheme sri<cr>
+"map <Leader>cs :colorscheme sri<cr>
 map <Leader>f :TlistToggle<cr>
 map <Leader>M :!morbo %<cr>
 map <Leader>x :!perl -Ilib %<cr>
@@ -261,7 +267,7 @@ au FileType haskell nmap gc :GhcModTypeClear<cr>
 "let &l:statusline = '%{empty(getqflist()) ? "[No Errors]" : "[Errors Found]"}' . (empty(&l:statusline) ? &statusline : &l:statusline)
 
 " markdown support - turn-on distraction free writing mode for markdown files
-au BufNewFile,BufRead *.{md,mdown,mkd,mkdn,markdown,mdwn} call DistractionFreeWriting()
+"au BufNewFile,BufRead *.{md,mdown,mkd,mkdn,markdown,mdwn} call DistractionFreeWriting()
 au BufNewFile,BufRead *.{md,mdown,mkd,mkdn,markdown,mdwn} set filetype=markdown
 
 " compile erlang files
@@ -310,7 +316,7 @@ autocmd BufRead,BufNewFile *.t,*.pl,*.plx,*.pm nmap <Leader>te :let g:testfile =
 " open installed perl modules
 au FileType perl command! -nargs=1 PerlModuleSource :tabnew `perldoc -lm <args>`
 au FileType perl setlocal iskeyword+=:
-au FileType perl noremap <leader>P :PerlModuleSource <cword><cr>zR<cr>
+au FileType perl nmap <leader>P :PerlModuleSource <cword><cr>zR<cr>
 
 " perltidy
 au FileType perl command! -range=% -nargs=* Tidy <line1>,<line2>!perltidy
@@ -326,9 +332,9 @@ let g:csseautify = {'indent_size': 2, 'indent_char': ' ', 'max_char': 80, 'brace
 "au FileType javascript command! -range=% -nargs=* Tidy <line1>,<line2> :call JsBeautify()
 "au FileType javascript nmap <Leader>pt mz:Tidy<cr>'z:delmarks z<cr> " normal mode
 "au FileType javascript vmap <Leader>pt :Tidy<cr> " visual mode
-au FileType javascript noremap <buffer> <leader>pt :call JsBeautify()<cr>
-"au FileType html noremap <buffer> <leader>pt :call HtmlBeautify()<cr>
-"au FileType css noremap <buffer> <leader>pt :call CSSBeautify()<cr>
+au FileType javascript nmap <buffer> <leader>pt :call JsBeautify()<cr>
+au FileType html nmap <buffer> <leader>pt :call HtmlBeautify()<cr>
+au FileType css nmap <buffer> <leader>pt :call CSSBeautify()<cr>
 
 " csstidy
 "au FileType css command! -range=% -nargs=* Tidy <line1>,<line2>!csstidy
@@ -465,23 +471,47 @@ endfunction
 "command! PrettyXML call DoPrettyXML()
 
 
-function DistractionFreeWriting()
-    colorscheme iawriter
-    set background=light
-    set gfn=Cousine:h14                " font to use
-    set lines=40 columns=120           " size of the editable area
-    set listchars=tab:▸\ ,extends:#,nbsp:.,trail:.
-    set guioptions-=r                  " remove right scrollbar
-    set laststatus=0                   " don't show status line
-    set noruler                        " don't show ruler
-    set linebreak                      " break the lines on words
-    set nocursorline
-    set nocursorcolumn
-    set nonumber
-    set cc=
+"function! DistractionFreeWriting()
+    "colorscheme iawriter
+    "set background=light
+    "set gfn=Cousine:h14                " font to use
+    "set lines=40 columns=120           " size of the editable area
+    "set listchars=tab:▸\ ,extends:#,nbsp:.,trail:.
+    "set guioptions-=r                  " remove right scrollbar
+    "set laststatus=0                   " don't show status line
+    "set noruler                        " don't show ruler
+    "set linebreak                      " break the lines on words
+    "set nocursorline
+    "set nocursorcolumn
+    "set nonumber
+    "set cc=
 
-    if has("gui_macvim")
-      set fuoptions=background:#00f5f6f6 " macvim specific setting for editor's background color 
-      set fullscreen                     " go to fullscreen editing mode
-    endif
-endfunction
+    "if has("gui_macvim")
+      "set fuoptions=background:#00f5f6f6 " macvim specific setting for editor's background color 
+      "set fullscreen                     " go to fullscreen editing mode
+    "endif
+"endfunction
+
+"function! ToggleIndentGuidesSpaces()
+	"if exists('b:iguides_spaces')
+		"call matchdelete(b:iguides_spaces)
+		"unlet b:iguides_spaces
+	"else
+		"let pos = range(1, &l:textwidth, &l:shiftwidth)
+		"call map(pos, '"\\%" . v:val . "v"')
+		"let pat = '\%(\_^\s*\)\@<=\%(' . join(pos, '\|') . '\)\s'
+		"let b:iguides_spaces = matchadd('CursorLine', pat)
+	"endif
+"endfunction
+
+"function! ToggleIndentGuidesTabs()
+	"if exists('b:iguides_tabs')
+		"setlocal nolist
+		"let &l:listchars = b:iguides_tabs
+		"unlet b:iguides_tabs
+	"else
+		"let b:iguides_tabs = &l:listchars
+		"setlocal listchars=tab:┆\ "protect the space
+		"setlocal list
+	"endif
+"endfunction
