@@ -1,3 +1,7 @@
+" ctags
+set tags=./tags,./../tags,./../../tags,./../../../tags,tags
+nmap ,ct :!(cd %:p:h;ctags *)&
+
 " slimv options
 let g:slimv_keybindings=1
 let g:lisp_rainbow=1
