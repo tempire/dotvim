@@ -51,11 +51,6 @@ endif
 
 let g:syntastic_enable_perl_checker = 1
 
-" pathogen
-call pathogen#infect()
-"silent! call pathogen#runtime_append_all_bundles()
-"silent! call pathogen#helptags()
-
 " turn on indent-guides
 "nautocmd VimEnter * IndentGuidesEnable
 "let g:indent_guides_guide_size=1
