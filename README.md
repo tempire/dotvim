@@ -13,8 +13,17 @@
     git clone git://github.com/tempire/dotvim.git .vim
     cd .vim
     ln -s ~/.vim/vimrc ~/.vimrc
-    
-    # Open up vim, type :BundleInstall
+
+### Install Vundle
+
+  git
+  clone
+  https://github.com/gmarik/Vundle.vim.git
+  ~/.vim/bundle/Vundle.vim
+
+### Install other plugins using vundle
+
+  Open up vim, type :BundleInstall
 
 
 ### If you're using Haskell...

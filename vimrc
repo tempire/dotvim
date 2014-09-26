@@ -24,7 +24,7 @@ Plugin 'pangloss/vim-javascript'
 Plugin 'mxw/vim-jsx'
 Plugin 'cakebaker/scss-syntax.vim'
 Plugin 'groenewege/vim-less'
-Plugin 'michalliu/sourcebeautify'
+Plugin 'michalliu/sourcebeautify.vim'
 
 " ctags
 set tags=./tags,./../tags,./../../tags,./../../../tags,tags
